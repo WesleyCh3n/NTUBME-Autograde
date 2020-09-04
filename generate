@@ -73,17 +73,17 @@ gtest() {
     for(( i=0; i<${#STRARRAY[@]}; i++))
     do
         if [[ ${STRARRAY[i]} == "=" ]]; then
-            FUNC+="\tASSERT_EQ(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_EQ(answer$((i+1)), {{NUM}});\n"
         elif [[ ${STRARRAY[i]} == "<" ]]; then
-            FUNC+="\tASSERT_LT(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_LT(answer$((i+1)), {{NUM}});\n"
         elif [[ ${STRARRAY[i]} == ">" ]]; then
-            FUNC+="\tASSERT_GT(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_GT(answer$((i+1)), {{NUM}});\n"
         elif [[ ${STRARRAY[i]} == "<=" ]]; then
-            FUNC+="\tASSERT_LE(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_LE(answer$((i+1)), {{NUM}});\n"
         elif [[ ${STRARRAY[i]} == ">=" ]]; then
-            FUNC+="\tASSERT_GE(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_GE(answer$((i+1)), {{NUM}});\n"
         elif [[ ${STRARRAY[i]} == "!=" ]]; then
-            FUNC+="\tASSERT_NE(answer${i+1}, {{NUM}});\n"
+            FUNC+="\tASSERT_NE(answer$((i+1)), {{NUM}});\n"
         fi
     done
 
