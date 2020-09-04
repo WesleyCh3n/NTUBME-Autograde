@@ -54,11 +54,11 @@ setup_color() {
 
 get_template() {
     info "autograde-Makefile"
-    curl -o ./autograde-Makefile -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/autograde-Makefile.template
+    curl -o ./autograde-Makefile -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/autograde-Makefile.template
     info "gtest.cpp.template"
-    curl -o ./gtest.cpp -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/gtest.cpp.template
+    curl -o ./gtest.cpp -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/gtest.cpp.template
     info "score.py"
-    curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/score.py.template
+    curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score.py.template
 }
 
 gtest() {
