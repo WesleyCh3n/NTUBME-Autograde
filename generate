@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# SIGN="< = = !="
+# N_ANS="3"
+# N_TEST="3"
+# HW_NUM="02a"
+# INPUTS="12 12 42, 12 23"
+PARAMS=""
+while (( "$#" )); do
+    case "$1" in
+        -hw|--hw)
+            HW_NUM=$2
+            shift
+            ;;
+        -a|--num-ans)
+            N_ANS=$2
+            shift
+            ;;
+        -t|--num-test)
+            N_TEST=$2
+            shift
+            ;;
+        -s|--sign)
+            SIGN=$2
+            shift
+            ;;
+        -i|--inputs)
+            INPUTS=$2
+            shift
+            ;;
+        -*|--*=) # unsupported flags
+            echo "Error: Unsupported flag $1" >&2
+            exit 1
+            ;;
+        *) #reserve positional arguments
+            PARAMS="$PARAMS $1"
+            shift
+            ;;
+    esac
+done
+# eval set -- "$PARAMS"
+
+
+cp ./gtest.cpp ./autograde-Makefile
+cp ./gtest.cpp.template ./gtest.cpp
+cp ./autograde-Makefile.template ./autograde-Makefile
+
+for(( i=1; i<=$((N_ANS)); i++))
+do
+    sed -i "$((i+1))a extern {TYPE} answer${i};" ./gtest.cpp
+done
+
+
+FUNC=""
+IFS=' '
+read -a STRARRAY <<< "$SIGN"
+for(( i=0; i<${#STRARRAY[@]}; i++))
+do
+    if [[ ${STRARRAY[i]} == "=" ]]; then
+        FUNC+="\tASSERT_EQ(answer{{${i}}}, {{NUM}});\n"
+    elif [[ ${STRARRAY[i]} == "<" ]]; then
+        FUNC+="\tASSERT_LT(answer{{${i}}}, {{NUM}});\n"
+    elif [[ ${STRARRAY[i]} == ">" ]]; then
+        FUNC+="\tASSERT_GT(answer{{${i}}}, {{NUM}});\n"
+    elif [[ ${STRARRAY[i]} == "<=" ]]; then
+        FUNC+="\tASSERT_LE(answer{{${i}}}, {{NUM}});\n"
+    elif [[ ${STRARRAY[i]} == ">=" ]]; then
+        FUNC+="\tASSERT_GE(answer{{${i}}}, {{NUM}});\n"
+    elif [[ ${STRARRAY[i]} == "!=" ]]; then
+        FUNC+="\tASSERT_NE(answer{{${i}}}, {{NUM}});\n"
+    fi
+done
+
+for(( i=1; i<=$((N_TEST)); i++))
+do
+    STR="\nTEST(GoogleTest, test${i}){\n${FUNC}}"
+    echo -e ${STR} >> ./gtest.cpp
+done
+
+sed -i "s/{{HW_NUM}}/${HW_NUM^^}/" ./autograde-Makefile
+sed -i "s/{{N_TEST}}/$((N_TEST))/" ./autograde-Makefile
+sed -i "s/{{INPUTS}}/\"${INPUTS}\"/" ./autograde-Makefile
