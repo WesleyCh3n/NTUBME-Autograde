@@ -39,6 +39,7 @@ generate -hw <hw number> \
         - String: `&=`(string match) `&?`(string not match)
 
 Example:
+
 Create HW05D with 3 answers with type `int float float`, "12 2" & "9 6" as each google tests inputs. First google test answers are answer1==12 answer2>=6, second google test answer are answer1!=7 answer2<99.
 
 ```
@@ -46,9 +47,4 @@ generate -hw 05d \
          -t "int float float" \
          -i "12 2,9 6" \
          -ans "1=12;2>=6 1!=7;2<99"
-```
-
-### Generate tar
-```
-generate tar
 ```
