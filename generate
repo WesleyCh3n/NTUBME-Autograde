@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# ./generate -hw 03c -a 2 -t 2 -s "< < !=" -i ""
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
@@ -8,24 +7,25 @@ while (( "$#" )); do
             HW_NUM=$2
             shift
             ;;
-        -a|--num-ans)
-            N_ANS=$2
+        -t|--type)
+            TYPE_ANS=$2
             shift
             ;;
-        -t|--num-test)
-            N_TEST=$2
-            shift
-            ;;
-        -s|--sign)
-            SIGN=$2
-            shift
-            ;;
-        -i|--inputs)
+        -i|--input)
             INPUTS=$2
             shift
             ;;
-        tar|tar)
-            tar cf autograde.tar ./gtest.cpp ./score.py
+        -ans|--answer)
+            ANSWERS=$2
+            shift
+            ;;
+        -h|--help)
+            echo -e "generate [-hw] [-t] [-i] [-ans]\ntype -h --help for help\nExample:\n\
+generate -hw 02a \
+-t \"int float float\" \
+-i \"12 13 14,53 53 93\" \
+-ans \"1=2;2!=23;3<=-12 1=12;2>21;3!=1212\"
+                "
             shift
             ;;
         -*|--*=) # unsupported flags
@@ -62,41 +62,57 @@ get_template() {
 }
 
 gtest() {
-    for(( i=1; i<=$((N_ANS)); i++))
+    IFS=' ' read -ra TYPE_ARR <<< "${TYPE_ANS}"
+    i=1
+    for TYPE in $TYPE_ANS
     do
-        sed -i "$((i+1))a extern {TYPE} answer${i};" ./gtest.cpp
+        sed -i "$((i+1))a extern ${TYPE} answer${i};" ./gtest.cpp
+        i=$((i+1))
     done
 
-    FUNC=""
-    IFS=' '
-    read -a STRARRAY <<< "$SIGN"
-    for(( i=0; i<${#STRARRAY[@]}; i++))
+    NUM=1
+    for word in $ANSWERS
     do
-        if [[ ${STRARRAY[i]} == "=" ]]; then
-            FUNC+="\tASSERT_EQ(answer$((i+1)), {{NUM}});\n"
-        elif [[ ${STRARRAY[i]} == "<" ]]; then
-            FUNC+="\tASSERT_LT(answer$((i+1)), {{NUM}});\n"
-        elif [[ ${STRARRAY[i]} == ">" ]]; then
-            FUNC+="\tASSERT_GT(answer$((i+1)), {{NUM}});\n"
-        elif [[ ${STRARRAY[i]} == "<=" ]]; then
-            FUNC+="\tASSERT_LE(answer$((i+1)), {{NUM}});\n"
-        elif [[ ${STRARRAY[i]} == ">=" ]]; then
-            FUNC+="\tASSERT_GE(answer$((i+1)), {{NUM}});\n"
-        elif [[ ${STRARRAY[i]} == "!=" ]]; then
-            FUNC+="\tASSERT_NE(answer$((i+1)), {{NUM}});\n"
-        fi
-    done
+        FUNC=""
+        IFS=';' read -ra ADDR <<< "$word"
+        for i in "${ADDR[@]}"; do
+            if [[ ${i} =~ ^[0-9]=[-*0-9a-zA-Z] ]];then
+                IFS='=' read -ra arr <<< "$i"
+                FUNC+="\tASSERT_EQ(answer${arr[0]}, ${arr[1]});\n"
 
-    for(( i=1; i<=$((N_TEST)); i++))
-    do
-        STR="\nTEST(GoogleTest, test${i}){\n${FUNC}}"
+            elif [[ ${i} =~ ^[0-9]\>[-*0-9a-zA-Z] ]];then
+                IFS='>' read -ra arr <<< "$i"
+                FUNC+="\tASSERT_GT(answer${arr[0]}, ${arr[1]});\n"
+
+            elif [[ ${i} =~ ^[0-9]\<[-*0-9a-zA-Z] ]];then
+                IFS='<' read -ra arr <<< "$i"
+                FUNC+="\tASSERT_LT(answer${arr[0]}, ${arr[1]});\n"
+
+            elif [[ ${i} =~ ^[0-9]!=[-*0-9a-zA-Z] ]];then
+                FUNC+="\tASSERT_NE(answer${i:0:1}, ${i:3:${#i}});\n"
+
+            elif [[ ${i} =~ ^[0-9]\>=[-*0-9a-zA-Z] ]];then
+                FUNC+="\tASSERT_GE(answer${i:0:1}, ${i:3:${#i}});\n"
+
+            elif [[ ${i} =~ ^[0-9]\<=[-*0-9a-zA-Z] ]];then
+                FUNC+="\tASSERT_LE(answer${i:0:1}, ${i:3:${#i}});\n"
+
+            elif [[ ${i} =~ ^[0-9]\&=[0-9a-zA-Z] ]];then
+                FUNC+="\tASSERT_STREQ(answer${i:0:1}, ${i:3:${#i}});\n"
+
+            elif [[ ${i} =~ ^[0-9]\&\?[0-9a-zA-Z] ]];then
+                FUNC+="\tASSERT_STRNE(answer${i:0:1}, ${i:3:${#i}});\n"
+            fi
+        done
+        STR="\nTEST(GoogleTest, test${NUM}){\n${FUNC}}"
         echo -e ${STR} >> ./gtest.cpp
+        NUM=$((NUM+1))
     done
 }
 
 makefile() {
     sed -i "s/{{HW_NUM}}/${HW_NUM^^}/" ./autograde-Makefile
-    sed -i "s/{{N_TEST}}/$((N_TEST))/" ./autograde-Makefile
+    sed -i "s/{{N_TEST}}/$((NUM))/" ./autograde-Makefile
     sed -i "s/{{INPUTS}}/\"${INPUTS}\"/" ./autograde-Makefile
 }
 {
@@ -104,11 +120,12 @@ makefile() {
     if [[ $HW_NUM != "" ]];then
         info "getting template"
         get_template
-        info "creating autograde-Makefile"
-        makefile
         info "creating gtest.cpp"
         gtest
-        info "rm autograde.tar if exist"
-        rm -f autograde.tar
+        info "creating autograde-Makefile"
+        makefile
+        info "tar autograde.tar"
+        tar cf autograde.tar ./gtest.cpp ./score.py
+        rm ./gtest.cpp ./score.py
     fi
 }
