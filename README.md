@@ -1,3 +1,18 @@
+# Autograde
+This program generate the files which autolab's autograde need for BMECPL Class. Simply as follow,
+```
+├───autograde-Makefile
+├───autograde.tar
+│   ├───score.py
+│   └───gtest.cpp
+```
+
+You can see through `autograde-Makefile` to have the overview of whole concept.
+
+`score.py` is the main code to generate score.
+
+`gtest.cpp` is the Google Test code.
+
 ## Installation
 ```
 wget https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/generate
@@ -7,6 +22,7 @@ mv ./generate ~/.local/bin/
 Remember to add `export PATH=$PATH:$HOME/.local/bin` to .bashrc.
 
 ## Usage
+### Generate Homework
 ```
 generate -hw <hw number> \
          -a <number of answer> \
@@ -29,4 +45,10 @@ generate -hw 05d \
          -t 2 \
          -s "= =" \
          -i "12 2,9 6"
+```
+![Attention](https://via.placeholder.com/15/f03c15/000000?text=+) `Attention`: After generating files, `gtest.cpp` still need to modify `{{TYPE}}` of answer and `{{NUM}}` of right answers in code.
+
+### Generate tar
+```
+generate tar
 ```
