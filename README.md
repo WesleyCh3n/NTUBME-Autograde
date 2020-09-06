@@ -28,7 +28,7 @@ First create sample `answers.yaml` by typing
 ```
 generate
 ```
-In `answers.yml`:
+In `answers.yml`, modify parameters to create the test you want:
 ```yml
 HW_NUM: <HW number>
 TYPE_ANS: <Type of answers>
@@ -36,12 +36,12 @@ INPUTS: <User input of each test>
 ANSWERS: <Right answers>
 ```
 
-| Variable     | Content(Format)                               | Format                                                                                                      | Exmaple                 |
-| :----:       | :-:                                           | :-:                                                                                                         | :-:                     |
-| **HW_NUM**   | HW number                                     | Zero padding first                                                                                          | `06c`                   |
-| **TYPE_ANS** | The tatal type of variables in this question. | Use `,` seperate each type                                                                                  | `float,double`          |
-| **INPUTS**   | The User input for Google Test.               | Use `,` seperate each input in that test. Use `;` seperate each test                                        | `12,23;31,42`           |
-| **ANSWERS**  | The right answers.                            | First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**. | `1=30,2>89;1!=98,2<=40` |
+| Parameters |                     Info                    |                                                   Format                                                  |        Exmaple        |
+|   :----:   |                     :-:                     |                                                    :-:                                                    |          :-:          |
+| **HW_NUM** |                  HW number                  |                                             Zero padding first                                            |         `06c`         |
+|**TYPE_ANS**|The tatal type of variables in this question.|                                         Use `,` seperate each type                                        |     `float,double`    |
+| **INPUTS** |       The User input for Google Test.       |                    Use `,` seperate each input in that test. Use `;` seperate each test                   |     `12,23;31,42`     |
+| **ANSWERS**|              The right answers.             |First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**.|`1=30,2>89;1!=98,2<=40`|
 
 Valid logical operators for **ANSWERS**:
 - Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`
@@ -55,7 +55,7 @@ Once you finished editing, type following cmd to generate code
 generate -Y answer.yml
 ```
 
-
+---
 #### Using cmdline (DEPRECATED)
 ```
 generate -hw <hw number> \
