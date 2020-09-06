@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
                     # if pass test result append 1, else 0
                     results.append(1 if test_out.returncode == 0 else 0)
-                    print(f"Pass Tesing Num.{i}" if test_out.returncode == 0 else f"Fail Testing Num.{i}")
+                    print(f"Pass Tesing Num.{i}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{i}".center(90, " "))
 
             elif len(args.inputs) == 0: # Don't need input
                 if args.N == 0: # if the test need google test
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
                     # if pass test result append 1, else 0
                     results.append(1 if test_out.returncode == 0 else 0)
-                    print(f"Pass Tesing Num.{0}" if test_out.returncode == 0 else f"Fail Testing Num.{0}")
+                    print(f"Pass Tesing Num.{i}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{i}".center(90, " "))
 
                 else:
                     for i in range(args.N):
@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
                         # if pass test result append 1, else 0
                         results.append(1 if test_out.returncode == 0 else 0)
-                        print(f"Pass Tesing Num.{i}" if test_out.returncode == 0 else f"Fail Testing Num.{i}")
+                        print(f"Pass Tesing Num.{i}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{i}".center(90, " "))
 
         # Calculate final score
         final = int( 30 + 40*(sum(results)/len(results)) + (-3)*warn)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         info(" Autograde Finish ")
         print("\n")
         info(" Final Score ")
-        print(json.dumps({"scores":{"Autograde":final}}))
+        print(json.dumps({"scores":{"Autograde":final}}).center(90, " "))
 
     else:
         # Compile fail
@@ -105,4 +105,4 @@ if __name__ == "__main__":
         info(" Compiling Fail ")
         info(" Autograde Finish ")
         info(" Final Score ")
-        print(json.dumps({"scores":{"Autograde":0}}))
+        print(json.dumps({"scores":{"Autograde":0}}).center(90, " "))
