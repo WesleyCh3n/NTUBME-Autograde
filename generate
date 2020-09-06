@@ -19,6 +19,14 @@ while (( "$#" )); do
             ANSWERS=$2
             shift
             ;;
+        -Y|--yaml)
+            FILE=$2
+            HW_NUM="$(sed -n -e "s/HW_NUM: //p" ${FILE})"
+            TYPE_ANS="$(sed -n -e 's/TYPE_ANS: //p' ${FILE})"
+            INPUTS="$(sed -n -e 's/INPUTS: //p' ${FILE})"
+            ANSWERS="$(sed -n -e 's/ANSWERS: //p' ${FILE})"
+            shift
+            ;;
         -h|--help)
             echo -e "generate [-hw] [-t] [-i] [-ans]\ntype -h --help for help\nExample:\n\
 generate -hw 02a \
@@ -62,19 +70,20 @@ get_template() {
 }
 
 gtest() {
-    IFS=' ' read -ra TYPE_ARR <<< "${TYPE_ANS}"
+    # Decalre ansers with type in gtest.cpp
+    IFS=',' read -ra TYPE_ARR <<< "${TYPE_ANS}"
     i=1
-    for TYPE in $TYPE_ANS
-    do
+    for TYPE in "${TYPE_ARR[@]}"; do
         sed -i "$((i+1))a extern ${TYPE} answer${i};" ./gtest.cpp
         i=$((i+1))
     done
 
-    NUM=1
-    for word in $ANSWERS
-    do
+    # processing right answer
+    NUM=0
+    IFS=';' read -ra ANS_ARR <<< "$ANSWERS"
+    for word in "${ANS_ARR[@]}"; do
         FUNC=""
-        IFS=';' read -ra ADDR <<< "$word"
+        IFS=',' read -ra ADDR <<< "$word"
         for i in "${ADDR[@]}"; do
             if [[ ${i} =~ ^[0-9]=[-*0-9a-zA-Z] ]];then
                 IFS='=' read -ra arr <<< "$i"
@@ -117,15 +126,37 @@ makefile() {
 }
 {
     setup_color
-    if [[ $HW_NUM != "" ]];then
-        info "getting template"
-        get_template
-        info "creating gtest.cpp"
-        gtest
-        info "creating autograde-Makefile"
-        makefile
-        info "tar autograde.tar"
-        tar cf autograde.tar ./gtest.cpp ./score.py
-        rm ./gtest.cpp ./score.py
+    if [ $# != 0 ];then
+        if [[ $FILE == "" ]];then
+            info "getting template"
+            get_template
+            info "creating gtest.cpp"
+            gtest
+            info "creating autograde-Makefile"
+            makefile
+            info "tar autograde.tar"
+            tar cf autograde.tar ./gtest.cpp ./score.py
+            rm ./gtest.cpp ./score.py
+        fi
+
+        if [[ $FILE != "" ]];then
+            info "getting template"
+            get_template
+            info "creating gtest.cpp"
+            gtest
+            info "creating autograde-Makefile"
+            makefile
+            info "tar autograde.tar"
+            tar cf autograde.tar ./gtest.cpp ./score.py
+            rm ./gtest.cpp ./score.py
+        fi
+    else
+        info "generate yaml sample"
+        echo -e "\
+HW_NUM: 01a
+TYPE_ANS: int,float
+INPUTS: 22,43;123,43
+ANSWERS: 1=23,2!=32;1<9,2<=144" > answers.yaml
+
     fi
 }
