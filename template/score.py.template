@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
                     # if pass test result append 1, else 0
                     results.append(1 if test_out.returncode == 0 else 0)
-                    print(f"Pass Tesing Num.{i}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{i}".center(90, " "))
+                    print(f"Pass Tesing Num.{0}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{0}".center(90, " "))
 
                 else:
                     for i in range(args.N):
