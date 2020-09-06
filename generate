@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ARGS=$#
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
@@ -130,7 +131,7 @@ makefile() {
 }
 {
     setup_color
-    if [ $# -eq 0 ];then
+    if [[ $ARGS != 0 ]];then
         if [[ $FILE == "" ]];then
             info "getting template"
             get_template
