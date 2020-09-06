@@ -25,19 +25,21 @@ Remember to add `export PATH=$PATH:$HOME/.local/bin` to .bashrc.
 ### Generate Homework
 ```
 generate -hw <hw number> \
-         -a <number of answer> \
-         -t <number of test> \
-         -s "<logical operator each test>" \
+         -t <type of answers> \
          -i "<user input of each test>"
+         -ans "<right answer>"
 ```
 
 - `-hw`: homework number with problem. Need zero padding at first charactor. ex: `-hw 03c` # means HW03C
-- `-a`: the total number of answers which student declare, like answer1, answer2. ex: `-a 3` # means this problem have 3 answer variables.
-- `-t`: number of google test. ex: `-t 3`
-- `-s`: logical operator in each google test. Need to be in "" and with space each operator. Valid operator: `>` `<` `=` `>=` `<=` `!=`. ex: `-s "> = =!"`
+- `-t`: type of each `answer` variables. ex: `-t "int float float"`
 - `-i`: if this problem has user input. Need to be in "". Each test use `,` to seperate. Use space to seperate every input in each test. ex: `-i "33 12,93 22"`
+- `-ans`: right answer of each test. Use space saparate each test. Use `;` to sparate each eq. ex: `-ans \"1=2;2!=23;3<=-12 1=12;2>21;3!=1212\"`
+    - List of valid operator:
+        - Binary: `=` `>` `<` `!=` `>=` `<=`
+        - String: `&=`(string match) `&?`(string not match)
 
 Example:
+<<<<<<< HEAD
 Create HW05D with 3 answers, 2 google tests, "= =" in each test, 2 google tests with "12 2" & "9 6" inputs.
 ```
 generate -hw 05d \
@@ -48,3 +50,14 @@ generate -hw 05d \
 ```
 
 **Attention**: After generating files, `gtest.cpp` still need to modify `{{TYPE}}` of answer and `{{NUM}}` of right answers in code.
+=======
+
+Create HW05D with 3 answers with type `int float float`, "12 2" & "9 6" as each google tests inputs. First google test answers are answer1==12 answer2>=6, second google test answer are answer1!=7 answer2<99.
+
+```
+generate -hw 05d \
+         -t "int float float" \
+         -i "12 2,9 6" \
+         -ans "1=12;2>=6 1!=7;2<99"
+```
+>>>>>>> 3a5b4f8e4473e957a0ba61775ded90e211517f04
