@@ -46,9 +46,5 @@ generate -hw 05d \
          -s "= =" \
          -i "12 2,9 6"
 ```
-![Attention](https://via.placeholder.com/15/f03c15/000000?text=Attention) `Attention`: After generating files, `gtest.cpp` still need to modify `{{TYPE}}` of answer and `{{NUM}}` of right answers in code.
 
-### Generate tar
-```
-generate tar
-```
+**Attention**: After generating files, `gtest.cpp` still need to modify `{{TYPE}}` of answer and `{{NUM}}` of right answers in code.
