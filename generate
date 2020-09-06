@@ -79,44 +79,48 @@ gtest() {
     done
 
     # processing right answer
-    NUM=0
-    IFS=';' read -ra ANS_ARR <<< "$ANSWERS"
-    for word in "${ANS_ARR[@]}"; do
-        FUNC=""
-        IFS=',' read -ra ADDR <<< "$word"
-        for i in "${ADDR[@]}"; do
-            if [[ ${i} =~ ^[0-9]=[-*0-9a-zA-Z] ]];then
-                IFS='=' read -ra arr <<< "$i"
-                FUNC+="\tASSERT_EQ(answer${arr[0]}, ${arr[1]});\n"
+    if [[ $ANSWERS == "" ]];then
+        NUM=0
+    else
+        NUM=1
+        IFS=';' read -ra ANS_ARR <<< "$ANSWERS"
+        for word in "${ANS_ARR[@]}"; do
+            FUNC=""
+            IFS=',' read -ra ADDR <<< "$word"
+            for i in "${ADDR[@]}"; do
+                if [[ ${i} =~ ^[0-9]=[-*0-9a-zA-Z] ]];then
+                    IFS='=' read -ra arr <<< "$i"
+                    FUNC+="\tASSERT_EQ(answer${arr[0]}, ${arr[1]});\n"
 
-            elif [[ ${i} =~ ^[0-9]\>[-*0-9a-zA-Z] ]];then
-                IFS='>' read -ra arr <<< "$i"
-                FUNC+="\tASSERT_GT(answer${arr[0]}, ${arr[1]});\n"
+                elif [[ ${i} =~ ^[0-9]\>[-*0-9a-zA-Z] ]];then
+                    IFS='>' read -ra arr <<< "$i"
+                    FUNC+="\tASSERT_GT(answer${arr[0]}, ${arr[1]});\n"
 
-            elif [[ ${i} =~ ^[0-9]\<[-*0-9a-zA-Z] ]];then
-                IFS='<' read -ra arr <<< "$i"
-                FUNC+="\tASSERT_LT(answer${arr[0]}, ${arr[1]});\n"
+                elif [[ ${i} =~ ^[0-9]\<[-*0-9a-zA-Z] ]];then
+                    IFS='<' read -ra arr <<< "$i"
+                    FUNC+="\tASSERT_LT(answer${arr[0]}, ${arr[1]});\n"
 
-            elif [[ ${i} =~ ^[0-9]!=[-*0-9a-zA-Z] ]];then
-                FUNC+="\tASSERT_NE(answer${i:0:1}, ${i:3:${#i}});\n"
+                elif [[ ${i} =~ ^[0-9]!=[-*0-9a-zA-Z] ]];then
+                    FUNC+="\tASSERT_NE(answer${i:0:1}, ${i:3:${#i}});\n"
 
-            elif [[ ${i} =~ ^[0-9]\>=[-*0-9a-zA-Z] ]];then
-                FUNC+="\tASSERT_GE(answer${i:0:1}, ${i:3:${#i}});\n"
+                elif [[ ${i} =~ ^[0-9]\>=[-*0-9a-zA-Z] ]];then
+                    FUNC+="\tASSERT_GE(answer${i:0:1}, ${i:3:${#i}});\n"
 
-            elif [[ ${i} =~ ^[0-9]\<=[-*0-9a-zA-Z] ]];then
-                FUNC+="\tASSERT_LE(answer${i:0:1}, ${i:3:${#i}});\n"
+                elif [[ ${i} =~ ^[0-9]\<=[-*0-9a-zA-Z] ]];then
+                    FUNC+="\tASSERT_LE(answer${i:0:1}, ${i:3:${#i}});\n"
 
-            elif [[ ${i} =~ ^[0-9]\&=[0-9a-zA-Z] ]];then
-                FUNC+="\tASSERT_STREQ(answer${i:0:1}, ${i:3:${#i}});\n"
+                elif [[ ${i} =~ ^[0-9]\&=[0-9a-zA-Z] ]];then
+                    FUNC+="\tASSERT_STREQ(answer${i:0:1}, ${i:3:${#i}});\n"
 
-            elif [[ ${i} =~ ^[0-9]\&\?[0-9a-zA-Z] ]];then
-                FUNC+="\tASSERT_STRNE(answer${i:0:1}, ${i:3:${#i}});\n"
-            fi
+                elif [[ ${i} =~ ^[0-9]\&\?[0-9a-zA-Z] ]];then
+                    FUNC+="\tASSERT_STRNE(answer${i:0:1}, ${i:3:${#i}});\n"
+                fi
+            done
+            STR="\nTEST(GoogleTest, test${NUM}){\n${FUNC}}"
+            echo -e ${STR} >> ./gtest.cpp
+            NUM=$((NUM+1))
         done
-        STR="\nTEST(GoogleTest, test${NUM}){\n${FUNC}}"
-        echo -e ${STR} >> ./gtest.cpp
-        NUM=$((NUM+1))
-    done
+    fi
 }
 
 makefile() {
@@ -126,7 +130,7 @@ makefile() {
 }
 {
     setup_color
-    if [ $# != 0 ];then
+    if [ $# -eq 0 ];then
         if [[ $FILE == "" ]];then
             info "getting template"
             get_template
