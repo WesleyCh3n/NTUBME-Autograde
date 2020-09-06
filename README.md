@@ -1,13 +1,14 @@
-# Autograde
-This program generate the files which autolab's autograde need for BMECPL Class. Simply as follow,
+# NTU BME Autograde
+This program generate the files which `autolab autograde` need for NTU BME Computer Programming Course. Simply as follow,
 ```
 ├───autograde-Makefile
 ├───autograde.tar
 │   ├───score.py
 │   └───gtest.cpp
+├───answers.yaml
 ```
 
-You can see through `autograde-Makefile` to have the overview of whole concept.
+You can walk through `autograde-Makefile` to have the overview of whole concept.
 
 `score.py` is the main code to generate score.
 
@@ -24,11 +25,13 @@ Remember to add `export PATH=$PATH:$HOME/.local/bin` to .bashrc.
 ## Usage
 ### Generate Autograding Code
 #### Using Yaml (Suggestion)
-First create sample `answers.yaml` by typing
+First, goto the homework folder, ex. `~/Autolab/courses/<course_name>/<hw_name>/`.
+
+Create sample `answers.yaml` by typing
 ```
 generate
 ```
-In `answers.yml`, modify parameters to create the test you want:
+In `answers.yml`, modify parameters to create the tests you want:
 ```yml
 HW_NUM: <HW number>
 TYPE_ANS: <Type of answers>
