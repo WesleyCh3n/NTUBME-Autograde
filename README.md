@@ -39,18 +39,6 @@ generate -hw <hw number> \
         - String: `&=`(string match) `&?`(string not match)
 
 Example:
-<<<<<<< HEAD
-Create HW05D with 3 answers, 2 google tests, "= =" in each test, 2 google tests with "12 2" & "9 6" inputs.
-```
-generate -hw 05d \
-         -a 3 \
-         -t 2 \
-         -s "= =" \
-         -i "12 2,9 6"
-```
-
-**Attention**: After generating files, `gtest.cpp` still need to modify `{{TYPE}}` of answer and `{{NUM}}` of right answers in code.
-=======
 
 Create HW05D with 3 answers with type `int float float`, "12 2" & "9 6" as each google tests inputs. First google test answers are answer1==12 answer2>=6, second google test answer are answer1!=7 answer2<99.
 
@@ -60,4 +48,3 @@ generate -hw 05d \
          -i "12 2,9 6" \
          -ans "1=12;2>=6 1!=7;2<99"
 ```
->>>>>>> 3a5b4f8e4473e957a0ba61775ded90e211517f04
