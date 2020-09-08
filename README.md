@@ -44,7 +44,7 @@ ANSWERS: <Right answers>
 | **HW_NUM** |                  HW number                  |                                             Zero padding first                                            |         `06c`         |
 |**TYPE_ANS**|The tatal type of variables in this question.|                                         Use `,` seperate each type                                        |     `float,double`    |
 | **INPUTS** |       The User input for Google Test.       |                    Use `,` seperate each input in that test. Use `;` seperate each test                   |     `12,23;31,42`     |
-| **ANSWERS**|              The right answers.             |First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**.|`1=30,2>89;1!=98,2<=40`|
+| **ANSWERS**|              The right answers.             |First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**. For infinite decimal, use fraction with double-type denominator. For example `2=11/3.0` |`1=30,2>89;1!=98,2<=40`|
 
 Valid logical operators for **ANSWERS**:
 - Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`
