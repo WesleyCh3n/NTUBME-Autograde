@@ -18,8 +18,8 @@ args = parser.parse_args()
 
 ## Preprocessing arguments
 # list of Testing assessment's inputs
-inputs = args.inputs.replace(',',' ')
-inputs = [bytes(i, encoding='utf8') for i in inputs.split(';')]
+# inputs = args.inputs.replace(',',' ')
+inputs = [bytes(i, encoding='utf8') for i in args.inputs.split(';') if i != ""]
 # list of Testing commands
 if args.N != 0:
     gTest = [f"./out --gtest_filter=GoogleTest.test{i+1}" for i in range(args.N)]
