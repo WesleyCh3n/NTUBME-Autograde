@@ -98,7 +98,7 @@ makefile() {
 gtest() {
     # Decalre ansers with type in gtest.cpp
     for((i=0; i<$((L_TYPE)); i++));do
-        sed -i "$((i+2))a extern $(echo ${TYPES[i]}|tr -d "'") answer$((i+1));" "$@"
+        sed -i "$((i+3))a extern $(echo ${TYPES[i]}|tr -d "'") answer$((i+1));" "$@"
     done
 
     for((i=0; i<$((L_TEST)); i++));do
