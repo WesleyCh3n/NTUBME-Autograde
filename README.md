@@ -1,5 +1,5 @@
 # NTU BME Autograde
-This program generate the files which `autolab autograde` need for NTU BME Computer Programming Course. Simply as follow,
+This program generate the files which `autolab`'s `autograde` need for NTU BME Computer Programming Course. Simply as follow,
 ```
 ├───autograde-Makefile
 ├───autograde.tar
@@ -15,7 +15,7 @@ You can walk through `autograde-Makefile` to have the overview of whole concept.
 `gtest.cpp` is the Google Test code.
 
 
-## Prerequisite
+## Prerequisites
 - curl
 - [jq](https://stedolan.github.io/jq/): command-line JSON processor.
 - [yq](https://mikefarah.gitbook.io/yq/): command-line YAML processor.
