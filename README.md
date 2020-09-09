@@ -27,7 +27,6 @@ sudo make install
 ```
 
 ## Usage - Generate Autograding Code
-### Using Yaml (Suggestion)
 1. First, goto the homework folder, ex. `~/Autolab/courses/<course_name>/<hw_name>/`.
 
 2. Create sample `answers.yml` by typing
@@ -57,7 +56,7 @@ sudo make install
     ga -Y answers.yml
     ```
 
-#### Variables
+### Variables
 |   Parameters   |                     Info                    |         Format        |        Exmaple       |
 |     :----:     |                     :--                     |          :--          |          :--         |
 |  **Autograde** |                  Top level                  |                       |                      |
