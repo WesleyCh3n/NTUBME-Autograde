@@ -27,6 +27,10 @@ info() {
     echo "[${CYAN}INFO${NC}]" "$@"
 }
 
+warn() {
+    echo "[${RED}ERROR${NC}]" "$@"
+}
+
 setup_color() {
     RED=$(printf '\033[0;31m')
     CYAN=$(printf '\033[0;36m')
@@ -169,7 +173,10 @@ gtest() {
         fi
     else
         info "generate yaml sample"
-        echo -e "\
+        if [[ -f "./answers.yml" ]]; then
+            warn "answers.yml exists. Abort..."
+        else
+            echo -e "\
 ---
 Autograde:
   Homework:
@@ -180,5 +187,6 @@ Autograde:
         - L:
           op: ''
           R:" > answers.yml
+        fi
     fi
 }
