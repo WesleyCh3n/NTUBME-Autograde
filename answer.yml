@@ -1,9 +1,9 @@
 ---
 Autograde:
   Homework: 01a
-  VariableType: 
+  VariableType: ["int", "float", "double"]
   Test:
-    - input: 
+    - input: [93, 21, 12]
       answer:
         - L: ans1
           op: '='
@@ -11,27 +11,14 @@ Autograde:
         - L: abs(ans2-12)
           op: '<='
           R: 0.002
-# ---
-# Autograde:
-#   Homework: 01a
-#   VariableType: ["int", "float", "double"]
-#   Test:
-#     - input: [93, 21, 12]
-#       answer:
-#         - L: ans1
-#           op: '='
-#           R: 22
-#         - L: abs(ans2-12)
-#           op: '<='
-#           R: 0.002
-#     - input: [0.40, 32, -12]
-#       answer:
-#         - L: ans1
-#           op: =
-#           R: 12
-#         - L: sqrt(ans1-2)
-#           op: '!='
-#           R: 0.002
-#         - L: abs(ans2-2)
-#           op: '>='
-#           R: 11/4
+    - input: [0.40, 32, -12]
+      answer:
+        - L: ans1
+          op: =
+          R: 12
+        - L: sqrt(ans1-2)
+          op: '!='
+          R: 0.002
+        - L: abs(ans2-2)
+          op: '>='
+          R: 11/4
