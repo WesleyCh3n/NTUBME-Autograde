@@ -9,6 +9,7 @@ while (( "$#" )); do
             shift
             ;;
         -h|--help)
+            printf "ga [-Y] [input-file]\n-h,--help for help\n"
             shift
             ;;
         -*|--*=) # unsupported flags
@@ -44,8 +45,11 @@ get_template() {
 
 parse_yml() {
     # HW name
-    HW_NUM=$(yq -r ".Autograde.Homework" ${FILE})
-    echo "Homework number: $HW_NUM"
+    HW=$(yq -r ".Autograde.Homework" ${FILE})
+    NUM=$(echo $HW | tr -dc '0-9')
+    PRO=$(echo $HW | tr -d '0-9')
+    HW_NUM=$(printf "%02d%s" $NUM $PRO)
+    echo "Homework number: ${HW_NUM^^}"
 
     # Variable Type
     L_TYPE=$(yq -r ".Autograde.VariableType | length" ${FILE})
@@ -54,11 +58,7 @@ parse_yml() {
     else
         TYPES=($(yq -r ".Autograde.VariableType | @sh" ${FILE}))
         echo "Total Variables: ${TYPES[@]}"|tr -d "'"
-        # for((i=0; i<$((L_TYPE)); i++));do
-        #     echo ": ${TYPES[i]}" |tr -d "'"
-        # done
     fi
-
 
     # Google Test Variable
     ## Length of the test
@@ -87,6 +87,19 @@ parse_yml() {
         fi
     fi
     echo "Inputs: $FINAL_INPUT"
+
+    for((i=0; i<$((L_TEST)); i++));do
+        TEST_ANSWER=""
+        L_ANSWER=$(yq -r ".Autograde.Test[$((i))].answer|length" ${FILE})
+        for((j=0; j<$((L_ANSWER)); j++));do
+            L=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].L" ${FILE})
+            L=$(echo $L | sed "s/ans/answer/g")
+            op=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].op" ${FILE})
+            R=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].R" ${FILE})
+            TEST_ANSWER+="$L$op$R\n"
+        done
+        printf "Testing $((i+1))\n$TEST_ANSWER"
+    done
 }
 
 makefile() {
@@ -166,6 +179,6 @@ Autograde:
       answer:
         - L:
           op: ''
-          R: " > answers.yml
+          R:" > answers.yml
     fi
 }
