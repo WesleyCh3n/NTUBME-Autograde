@@ -84,16 +84,16 @@ This is an example of two test with one and two logical operations.
           R:
 ```
 
-|Parameters|Info                                          |Format                 |Exmaple   |
-|:----:    |:--                                           |:--                    |:--       |
-|**input** |The User input for Google Test.               |use list to store types|`[12, 13]`|
-|**answer**|The right answers. For example, answer1 == 32.|                       |          |
+|Parameters|Info                                                                              |Format                          |Exmaple   |
+|:----:    |:--                                                                               |:--                             |:--       |
+|**input** |The User input for Google Test.                                                   |use list to store the test input|`[12, 13]`|
+|**answer**|The right answers. For example, answer1 should be 32, answer2 less than 0.02, etc.|see `L`, `op`, `R` below        |          |
 
 <!-- |**answer**|       The right answers.      |First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**. Fraction with double-type denominator is also acceptable. For example `2=11/3.0`|`1=30,2>89;1!=98,2<=40`| -->
 
 |Parameters|Info                  |Format                                                                                                                                   |Exmaple      |
 |:----:    |:--                   |:--                                                                                                                                      |:--          |
-|**L**     |Left side of operator |Use `ans<num>`. Can implement with mathematical operation like: abs(ans1-ans2)                                                           |`sqrt(ans1)` |
+|**L**     |Left side of operator |Use `ans<num>` describe which variable you want to test. Can implement with mathematical operation like: abs(ans1-ans2)                  |`sqrt(ans1)` |
 |**op**    |logical operator      |<ul><li>Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`</li><li>String comparasion: `&=`(String match), `&?`(String not match)</li></ul>|`<=`         |
 |**R**     |Right side of operator|Value. Fraction with double-type denominator is also acceptable.                                                                         |`(11/3.0)-12`|
 
