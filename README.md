@@ -91,11 +91,11 @@ This is an example of two test with one and two logical operations.
 
 <!-- |**answer**|       The right answers.      |First charactor is which variable, 2nd is logical operator, 3rd is the value. Format is same as **INPUTS**. Fraction with double-type denominator is also acceptable. For example `2=11/3.0`|`1=30,2>89;1!=98,2<=40`| -->
 
-|Parameters|Info                  |Format                                                                                                                                   |Exmaple      |
-|:----:    |:--                   |:--                                                                                                                                      |:--          |
-|**L**     |Left side of operator |Use `ans<num>` describe which variable you want to test. Can implement with mathematical operation like: abs(ans1-ans2)                  |`sqrt(ans1)` |
-|**op**    |logical operator      |<ul><li>Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`</li><li>String comparasion: `&=`(String match), `&?`(String not match)</li></ul>|`<=`         |
-|**R**     |Right side of operator|Value. Fraction with double-type denominator is also acceptable.                                                                         |`(11/3.0)-12`|
+|Parameters|Info                  |Format                                                                                                                                             |Exmaple      |
+|:----:    |:--                   |:--                                                                                                                                                |:--          |
+|**L**     |Left side of operator |Use `ans<num>` describe which variable you want to test. Can implement with mathematical operation like: `abs(ans1-ans2)`                          |`sqrt(ans1)` |
+|**op**    |logical operator      |Use quote.<ul><li>Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`</li><li>String comparasion: `&=`(String match), `&?`(String not match)</li></ul>|`'<='`       |
+|**R**     |Right side of operator|Value. Fraction with double-type denominator is also acceptable.                                                                                   |`(11/3.0)-12`|
 
 If there is no **input**, leave it blank. if there is no test, just delete `Test:` field.
 
