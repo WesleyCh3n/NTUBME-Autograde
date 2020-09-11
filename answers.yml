@@ -1,10 +1,10 @@
 ---
 Autograde:
-  Homework:
+  Homework: 
   VariableType: []
   Test:
     - input: []
       answer:
         - L:
           op: ''
-          R: 
+          R:
