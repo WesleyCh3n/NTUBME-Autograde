@@ -56,7 +56,7 @@ sudo make install
     ga -Y answers.yml
     ```
 
-### Variables
+### Parameters
 |   Parameters   |                     Info                    |         Format        |        Exmaple       |
 |     :----:     |                     :--                     |          :--          |          :--         |
 |  **Autograde** |                  Top level                  |                       |                      |
