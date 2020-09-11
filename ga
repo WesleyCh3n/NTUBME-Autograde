@@ -196,6 +196,7 @@ Autograde:
             tar cf autograde.tar ./gtest.cpp ./score.py
             rm ./gtest.cpp ./score.py
         elif [[ $HWNUM != "" ]];then
+            # TODO: fix filename problem
             if [[ -f "./answers.yml" ]]; then
                 warn "answers.yml exists. Abort..."
             else
