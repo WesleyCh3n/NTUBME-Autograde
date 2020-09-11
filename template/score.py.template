@@ -65,7 +65,7 @@ if __name__ == "__main__":
         else:
             info(" Testing Output ")
             # if this test need to input somthing
-            if len(args.inputs) > 0: # Need input
+            if len(inputs) > 0: # Need input
                 for i in range(len(inputs)):
                     # Run google test
                     test_out = run(gTest[i].split(), input=inputs[i],stdout = PIPE, stderr = PIPE)
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                     results.append(1 if test_out.returncode == 0 else 0)
                     print(f"Pass Tesing Num.{i}".center(90, " ") if test_out.returncode == 0 else f"Fail Testing Num.{i}".center(90, " "))
 
-            elif len(args.inputs) == 0: # Don't need input
+            elif len(inputs) == 0: # Don't need input
                 if args.N == 0: # if the test need google test
                     # Run with no google test
                     test_out = run(gTest[0].split(), stdout = PIPE, stderr = PIPE)
