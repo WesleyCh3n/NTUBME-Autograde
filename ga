@@ -161,23 +161,18 @@ gtest() {
 }
 
 create(){
-    if [[ $HWNUM != "" ]];then
-        FILENAME="-HW0${HWNUM^^}"
-    else
-        FILENAME=""
-    fi
+    CONTENT="---\n";
+    CONTENT+="Autograde:\n";
+    CONTENT+="  Homework: $HWNUM\n"
+    CONTENT+="  VariableType: []\n"
+    CONTENT+="  Test:\n"
+    CONTENT+="    - input: []\n"
+    CONTENT+="      answer: \n"
+    CONTENT+="        - L: \n"
+    CONTENT+="          op: ''\n"
+    CONTENT+="          R: "
+    echo -e "$CONTENT" > $@
 
-    echo -e "\
----
-Autograde:
-  Homework: $HWNUM
-  VariableType: []
-  Test:
-    - input: []
-      answer:
-        - L:
-          op: ''
-          R:" > answers$FILENAME.yml
 }
 
 {
@@ -196,11 +191,12 @@ Autograde:
             tar cf autograde.tar ./gtest.cpp ./score.py
             rm ./gtest.cpp ./score.py
         elif [[ $HWNUM != "" ]];then
-            # TODO: fix filename problem
-            if [[ -f "./answers.yml" ]]; then
-                warn "answers.yml exists. Abort..."
+            FILENAME="answers-HW0${HWNUM^^}.yml"
+            info "create $FILENAME"
+            if [[ -f "./$FILENAME" ]]; then
+                warn "$FILENAME exists. Abort..."
             else
-                create
+                create $FILENAME
             fi
         fi
     else
@@ -208,7 +204,7 @@ Autograde:
         if [[ -f "./answers.yml" ]]; then
             warn "answers.yml exists. Abort..."
         else
-            create
+            create "./answers.yml"
         fi
     fi
 }
