@@ -1,6 +1,6 @@
 <h1 align="center"> NTU BME Autograde </h1>
 
-This program generate the files which `autolab`'s `autograde` need for NTU BME Computer Programming Course. Simply as follow,
+This program create the files which `autolab`'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
 ```
 ├───autograde-Makefile
 ├───autograde.tar
@@ -11,7 +11,7 @@ This program generate the files which `autolab`'s `autograde` need for NTU BME C
 
 You can walk through `autograde-Makefile` to have the overview of whole concept.
 
-`score.py` is the main code to generate score.
+`score.py` is the main code to grade student score.
 
 `gtest.cpp` is the Google Test code.
 
