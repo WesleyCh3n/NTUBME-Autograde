@@ -167,7 +167,7 @@ create(){
     CONTENT+="  VariableType: []\n"
     CONTENT+="  Test:\n"
     CONTENT+="    - input: []\n"
-    CONTENT+="      answer: \n"
+    CONTENT+="      answer:\n"
     CONTENT+="        - L: \n"
     CONTENT+="          op: ''\n"
     CONTENT+="          R: "
