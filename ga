@@ -157,6 +157,7 @@ gtest() {
 }
 
 {
+    setup_color
     if [[ $ARGS != 0 ]];then
         if [[ $FILE != "" ]];then
             info "getting latest template"
