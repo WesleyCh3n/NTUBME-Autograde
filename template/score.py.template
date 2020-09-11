@@ -55,7 +55,8 @@ if __name__ == "__main__":
 
         # Find do compile output have the "not declared..." or not, to test if student declare the right variable name
         info(" Finding Answer ")
-        find_ans = re.findall(r'‘answer\d’ was not declared in this scope',compile_out.stderr.decode())
+        find_ans = re.findall(r"undefined reference to `answer\d'",compile_out.stderr.decode())
+        # find_ans = re.findall(r'‘answer\d’ was not declared in this scope',compile_out.stderr.decode())
 
         if len(find_ans) > 0: # if the list > 0 means student didn't declare right name
             print('Unable to find the answer.\nPlease check your answer.\n(Which should be declared in Global.)')
