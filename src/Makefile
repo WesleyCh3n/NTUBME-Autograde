@@ -3,8 +3,8 @@ HW = HW{{HW_NUM}}.cpp
 all:
 	@tar xf autograde.tar
 	@# Delete stdafx.h pch.h
-	@sed -i -E "s/#( *)include( *)\"stdafx.h\"//" ${HW}
-	@sed -i -E "s/#( *)include( *)\"pch.h\"//" ${HW}
+	@sed -i -E "s/#( *)include( *)\"*<*stdafx.h\"*>*//" ${HW}
+	@sed -i -E "s/#( *)include( *)\"*<*pch.h\"*>*//" ${HW}
 	@# Copy and backup
 	@cp ${HW} "your.cpp"
 	@cp ${HW} "${HW}_"
