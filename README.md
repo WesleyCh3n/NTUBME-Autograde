@@ -104,11 +104,11 @@ If there is no **input**, leave it blank. if there is no test, just delete `Test
 
 1. Create template with HW number.
 ```bash
-docker run --rm -v "$PWD":/home/ -w /home/ wesleych3n/autograde:v1 -n {HW number}
+docker run --rm -v "$PWD":/home/ wesleych3n/autograde:v1 -n {HW number}
 ```
 2. generate codes
 ```bash
-docker run --rm -v "$PWD":/home/ -w /home/ wesleych3n/autograde:v1 -Y {filename}.yml
+docker run --rm -v "$PWD":/home/ wesleych3n/autograde:v1 -Y {filename}.yml
 ```
 
 ## Uninstall
