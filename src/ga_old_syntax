@@ -53,43 +53,43 @@ get_template() {
 
 parse_yml() {
     # HW name
-    HW=$(yq r ${FILE} "Autograde.Homework")
+    HW=$(yq -r ".Autograde.Homework" ${FILE})
     NUM=$(echo $HW | tr -dc '0-9')
     PRO=$(echo $HW | tr -d '0-9')
     HW_NUM=$(printf "%02d%s" $NUM $PRO)
     echo "Homework number: ${HW_NUM^^}"
 
     # Variable Type
-    L_TYPE=$(yq r ${FILE} -l "Autograde.VariableType")
+    L_TYPE=$(yq -r ".Autograde.VariableType | length" ${FILE})
     if [[ $L_TYPE == 0 ]];then
         echo "no variable declared"
     else
-        TYPES=($(yq r ${FILE} "Autograde.VariableType[*]"))
-        echo "Total Variables: ${TYPES[@]}"
+        TYPES=($(yq -r ".Autograde.VariableType | @sh" ${FILE}))
+        echo "Total Variables: ${TYPES[@]}"|tr -d "'"
     fi
 
     # Google Test Variable
     ## Length of the test
-    L_TEST=$(yq r ${FILE} -l "Autograde.Test")
+    L_TEST=$(yq -r ".Autograde.Test | length" ${FILE})
     ## INPUT
     if [[ $L_TEST == 0 ]];then
         echo "There is no test"
     else
         echo "There are $L_TEST tests"
-        INPUTS=$(yq r ${FILE} "Autograde.Test[*].input")
+        INPUTS=$(yq -r ".Autograde.Test[].input" ${FILE})
         # echo $INPUTS
-        if [[ $INPUTS == "" ]];then
+        if [[ $INPUTS == "null" ]];then
             echo "There is no inputs for tests."
             FINAL_INPUT=""
         else
             FINAL_INPUT=""
             for((i=0; i<$((L_TEST)); i++));do
-                INPUT=($(yq r ${FILE} "Autograde.Test[$((i))].input[*]"|tr '\n' ' '))
+                INPUT=$(yq -r ".Autograde.Test[$((i))].input|@sh" ${FILE})
 
-                if [[ $INPUT == "" ]];then
+                if [[ $INPUT == "null" ]];then
                     FINAL_INPUT+=";"
                 else
-                    FINAL_INPUT+="${INPUT[@]};"
+                    FINAL_INPUT+="$INPUT;"
                 fi
             done
         fi
@@ -98,12 +98,12 @@ parse_yml() {
 
     for((i=0; i<$((L_TEST)); i++));do
         TEST_ANSWER=""
-        L_ANSWER=$(yq r ${FILE} -l "Autograde.Test[$((i))].answer")
+        L_ANSWER=$(yq -r ".Autograde.Test[$((i))].answer|length" ${FILE})
         for((j=0; j<$((L_ANSWER)); j++));do
-            L=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].L")
+            L=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].L" ${FILE})
             L=$(echo $L | sed "s/ans/answer/g")
-            op=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].op")
-            R=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].R")
+            op=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].op" ${FILE})
+            R=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].R" ${FILE})
             TEST_ANSWER+="$L$op$R\n"
         done
         printf "Testing $((i+1))\n$TEST_ANSWER"
@@ -124,12 +124,12 @@ gtest() {
 
     for((i=0; i<$((L_TEST)); i++));do
         FUNC=""
-        L_ANSWER=$(yq r ${FILE} -l "Autograde.Test[$((i))].answer")
+        L_ANSWER=$(yq -r ".Autograde.Test[$((i))].answer|length" ${FILE})
         for((j=0; j<$((L_ANSWER)); j++));do
-            L=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].L")
+            L=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].L" ${FILE})
             L=$(echo $L | sed "s/ans/answer/g")
-            op=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].op")
-            R=$(yq r ${FILE} "Autograde.Test[$((i))].answer[$((j))].R")
+            op=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].op" ${FILE})
+            R=$(yq -r ".Autograde.Test[$((i))].answer[$((j))].R" ${FILE})
             if [[ ${op} == "=" ]];then
                 FUNC+="\tASSERT_EQ(${L}, ${R});\n"
 
