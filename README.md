@@ -1,4 +1,4 @@
-<h1 align="center"> NTU BME Autograde </h1>
+<h1 align="center" style="text-shadow: 2px 2px 2px #878787;"> NTU BME Autograde </h1>
 
 This program create the files which `autolab`'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
 ```
@@ -13,7 +13,7 @@ You can walk through `autograde-Makefile` to have the overview of whole concept.
 
 `score.py` is the main code to grade student score.
 
-`gtest.cpp` is the Google Test code.
+`gtest.cpp` is the [Google Test](https://github.com/google/googletest) code.
 
 
 ## Prerequisites
@@ -109,6 +109,13 @@ docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 -n {HW number}
 2. generate codes
 ```bash
 docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 -Y {filename}.yml
+```
+
+- You can put following code to shellrc(ex. `~/.bashrc`) to use `ga` normally as cli.
+```bash
+ga() {
+    docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 $@
+}
 ```
 
 ## Uninstall
