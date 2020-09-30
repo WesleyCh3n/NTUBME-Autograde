@@ -17,9 +17,9 @@ You can walk through `autograde-Makefile` to have the overview of whole concept.
 
 
 ## Prerequisites
-- curl
-- [jq](https://stedolan.github.io/jq/): command-line JSON processor.
-- [yq](https://mikefarah.gitbook.io/yq/): command-line YAML processor.
+- curl: get source code template.
+- [jq](https://stedolan.github.io/jq/)(v1.5): command-line JSON processor.
+- [yq](https://mikefarah.gitbook.io/yq/)(v3.4.0): command-line YAML processor.
 
 ## Installation
 ```bash
