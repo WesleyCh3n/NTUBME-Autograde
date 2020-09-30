@@ -100,6 +100,16 @@ This is an example of two test with one and two logical operations.
 
 If there is no **input**, leave it blank. if there is no test, just delete `Test:` field.
 
+## Docker
+
+1. Create template with HW number.
+```bash
+docker run --rm -v "$PWD":/home/ -w /home/ wesleych3n/autograde:v1 -n {HW number}
+```
+2. generate codes
+```bash
+docker run --rm -v "$PWD":/home/ -w /home/ wesleych3n/autograde:v1 -Y {filename}.yml
+```
 
 ## Uninstall
 ```bash
