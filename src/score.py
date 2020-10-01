@@ -9,7 +9,7 @@ from subprocess import run,PIPE
 def info(str):
     print(str.center(90, "="))
 
-def compile(str, inp=None):
+def shell(str, inp=None):
     return run(str.split(), input=inp, capture_output=True)
 
 def args_parse():
@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     # Compiling
     info(" Autograde Start ")
-    compile_out = compile(f"g++ {args.hw} -o out_origin -std=c++17 -Wall")
+    compile_out = shell(f"g++ {args.hw} -o out_origin -std=c++17 -Wall")
 
     # Print compiling outputs
     info(" Warning Output ")
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     # Clean compile binary file
     if os.path.isfile('./out_origin'):
-        run(f"rm ./out_origin".split())
+        shell("rm ./out_origin")
 
     # If compile successfull, do google test
     if compile_out.returncode == 0:
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         # Store testing result
         results = []
         # Compile with google test
-        compile_out = compile(f"g++ gtest.cpp -o out -std=c++17\
+        compile_out = shell(f"g++ gtest.cpp -o out -std=c++17\
                 -Wall -lgtest -lpthread")
 
         # Find do compile output have the "not declared..." or not,
@@ -86,7 +86,7 @@ if __name__ == "__main__":
             if len(inputs) > 0: # Need input
                 for i in range(len(inputs)):
                     # Run google test
-                    test_out = compile(gTest[i], inp=inputs[i])
+                    test_out = shell(gTest[i], inp=inputs[i])
 
                     # if pass test result append 1, else 0
                     results.append(1 if test_out.returncode == 0 else 0)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
             elif len(inputs) == 0: # Don't need input
                 if args.N == 0: # if the test need google test
                     # Run with no google test
-                    test_out = compile(gTest[0])
+                    test_out = shell(gTest[0])
 
                     # if pass test result append 1, else 0
                     results.append(1 if test_out.returncode == 0 else 0)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                 else:
                     for i in range(args.N):
                         # Run google test
-                        test_out = compile(gTest[i])
+                        test_out = shell(gTest[i])
 
                         # if pass test result append 1, else 0
                         results.append(1 if test_out.returncode == 0 else 0)
