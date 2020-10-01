@@ -44,7 +44,7 @@ if __name__ == "__main__":
     # Print compiling outputs
     info(" Warning Output ")
     # Autograde somehow can't deal with these two characters
-    compile_output = re.sub('‘|’', '"', compile_out.stderr.decode())
+    compile_output = compile_out.stderr.decode('ascii', 'ignore')
     print(compile_output)
 
     # Count numbers of warning
