@@ -64,17 +64,19 @@ if __name__ == "__main__":
         # Store testing result
         results = []
         # Compile with google test
+        info(" Compile with testing ")
         compile_out = shell(f"g++ gtest.cpp -o out -std=c++17\
                 -Wall -lgtest -lpthread")
-        info(" Compile with testing ")
-        compile_output = compile_out.stderr.decode('ascii', 'ignore')
-        print(compile_output)
-
         # Find do compile output have the "not declared..." or not,
         # to test if student declare the right variable name
         info(" Finding Answer ")
         find_ans = re.findall(r"undefined reference to `answer\d'",
                 compile_out.stderr.decode())
+
+        # print out compile with gtest output
+        compile_output = compile_out.stderr.decode('ascii', 'ignore')
+        print(compile_output)
+
 
         # if the list > 0 means student didn't declare right name
         if len(find_ans) > 0:
