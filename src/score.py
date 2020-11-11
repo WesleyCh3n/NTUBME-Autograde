@@ -67,15 +67,17 @@ if __name__ == "__main__":
         info(" Compile with testing ")
         compile_out = shell(f"g++ gtest.cpp -o out -std=c++17\
                 -Wall -lgtest -lpthread")
+
+        # print out compile with gtest output
+        compile_output = compile_out.stderr.decode('ascii', 'ignore')
+        print(compile_output)
+
         # Find do compile output have the "not declared..." or not,
         # to test if student declare the right variable name
         info(" Finding Answer ")
         find_ans = re.findall(r"undefined reference to `answer\d'",
                 compile_out.stderr.decode())
 
-        # print out compile with gtest output
-        compile_output = compile_out.stderr.decode('ascii', 'ignore')
-        print(compile_output)
 
 
         # if the list > 0 means student didn't declare right name
@@ -85,10 +87,7 @@ if __name__ == "__main__":
                   '(Which should be declared in Global.)')
             results.append(0)
             warn = 0
-        elif not os.path.isfile("./out"):
-            info(" Compile with test failed ")
-            results.append(0)
-        else:
+        elif os.path.isfile("./out"):
             info(" Testing Output ")
             # if this test need to input somthing
             if len(inputs) > 0: # Need input
@@ -123,6 +122,9 @@ if __name__ == "__main__":
                         print(f"Pass Tesing Num.{i}".center(90, " ")
                                 if test_out.returncode == 0
                                 else f"Fail Testing Num.{i}".center(90, " "))
+        else:
+            info(" Compile with test failed ")
+            results.append(0)
 
         # Calculate final score
         final = int( 30 + 40*(sum(results)/len(results)) + (-3)*warn)
