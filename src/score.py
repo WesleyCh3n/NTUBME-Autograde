@@ -83,6 +83,8 @@ if __name__ == "__main__":
                   '(Which should be declared in Global.)')
             results.append(0)
             warn = 0
+        elif os.path.isfile("./out"):
+            info(" Compile with test failed ")
         else:
             info(" Testing Output ")
             # if this test need to input somthing

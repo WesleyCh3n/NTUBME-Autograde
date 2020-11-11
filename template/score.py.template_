@@ -66,6 +66,9 @@ if __name__ == "__main__":
         # Compile with google test
         compile_out = shell(f"g++ gtest.cpp -o out -std=c++17\
                 -Wall -lgtest -lpthread")
+        info(" Compile with testing ")
+        compile_output = compile_out.stderr.decode('ascii', 'ignore')
+        print(compile_output)
 
         # Find do compile output have the "not declared..." or not,
         # to test if student declare the right variable name
