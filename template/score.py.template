@@ -85,6 +85,7 @@ if __name__ == "__main__":
             warn = 0
         elif not os.path.isfile("./out"):
             info(" Compile with test failed ")
+            results.append(0)
         else:
             info(" Testing Output ")
             # if this test need to input somthing
