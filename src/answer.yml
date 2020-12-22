@@ -1,6 +1,7 @@
 ---
 Autograde:
   Homework: 01a
+  AdditionalTar: ["./Documents.txt"]
   VariableType: ["int", "float", "double"]
   Test:
     - input: [93, 21, 12]

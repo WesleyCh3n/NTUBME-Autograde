@@ -59,6 +59,15 @@ parse_yml() {
     HW_NUM=$(printf "%02d%s" $NUM $PRO)
     echo "Homework number: ${HW_NUM^^}"
 
+    # Tar files
+    L_TAR=$(yq r ${FILE} -l "Autograde.AdditionalTar")
+    if [[ $L_TAR == 0 ]];then
+        echo "no additional file included"
+    else
+        TARS=($(yq r ${FILE} "Autograde.AdditionalTar[*]"))
+        echo "Additional files: ${TARS[@]}"
+    fi
+
     # Variable Type
     L_TYPE=$(yq r ${FILE} -l "Autograde.VariableType")
     if [[ $L_TYPE == 0 ]];then
@@ -164,6 +173,7 @@ create(){
     CONTENT="---\n";
     CONTENT+="Autograde:\n";
     CONTENT+="  Homework: $HWNUM\n"
+    CONTENT+="  AdditionalTar: []\n"
     CONTENT+="  VariableType: []\n"
     CONTENT+="  Test:\n"
     CONTENT+="    - input: []\n"
@@ -188,7 +198,7 @@ create(){
             info "creating gtest.cpp"
             gtest "./gtest.cpp"
             info "tar autograde.tar"
-            tar cf autograde.tar ./gtest.cpp ./score.py
+            tar cf autograde.tar ./gtest.cpp ./score.py ${TARS[@]}
             rm ./gtest.cpp ./score.py
         elif [[ $HWNUM != "" ]];then
             FILENAME="answers-HW0${HWNUM^^}.yml"

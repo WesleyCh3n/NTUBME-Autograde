@@ -1,6 +1,7 @@
 ---
 Autograde:
   Homework: 
+  AdditionalTar: []
   VariableType: []
   Test:
     - input: []
