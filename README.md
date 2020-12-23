@@ -116,7 +116,7 @@ docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 -Y {filename}.yml
 - You can put following code to shellrc(ex. `~/.bashrc`) to use `ga` normally as cli.
 ```bash
 ga() {
-    docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 $@
+    docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.2 $@
 }
 ```
 
