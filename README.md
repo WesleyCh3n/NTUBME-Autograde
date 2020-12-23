@@ -42,6 +42,7 @@ sudo make install
     ---
     Autograde:
       Homework: 4c
+      AdditionalTar: []
       VariableType: [int, float, double]
       Test:
         - input: [1, 0.2, -32]
@@ -58,11 +59,12 @@ sudo make install
     ```
 
 ### Parameters
-|   Parameters   |                     Info                    |         Format        |        Exmaple       |
-|     :----:     |                     :--                     |          :--          |          :--         |
-|  **Autograde** |                  Top level                  |                       |                      |
-|  **Homework**  |                  HW number                  |     number+problem    |         `6c`         |
-|**VariableType**|The tatal type of variables in this question.|use list to store types|`[float, double, int]`|
+| Parameters        | Info                                          | Format                  | Exmaple                |
+| :----:            | :--                                           | :--                     | :--                    |
+| **Autograde**     | Top level                                     |                         |                        |
+| **Homework**      | HW number                                     | number+problem          | `6c`                   |
+| **AdditionalTar** | Additional files                              | file1, file2            | `[file1, file2]`       |
+| **VariableType**  | The tatal type of variables in this question. | use list to store types | `[float, double, int]` |
 
 **Google Test field**(`Test:`): using yaml [list](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) syntax to store the lists of tests also lists of logical operation each test. Remember not to write unnecessary `-`, that may loss some of tests.
 
