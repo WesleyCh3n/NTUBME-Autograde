@@ -42,7 +42,7 @@ sudo make install
     ---
     Autograde:
       Homework: 4c
-      AdditionalTar: []
+      AdditionalTar: ["./Document.txt", "./foo.txt"]
       VariableType: [int, float, double]
       Test:
         - input: [1, 0.2, -32]
