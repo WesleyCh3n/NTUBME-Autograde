@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <math.h>
+#include <string>
 #include "your.cpp"
 
 int main(int argc, char **argv) {
