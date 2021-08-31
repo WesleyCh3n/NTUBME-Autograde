@@ -4,7 +4,10 @@
 ![Bash - 5.0.17](https://img.shields.io/badge/Bash-5.0.17-informational?logo=gnu-bash)
 ![Made with - Docker](https://img.shields.io/badge/Made_with-Docker-informational?logo=Docker)
 
-![logo](https://autolabproject.com/images/autolab_red.svg)
+
+<a href="http://autolabproject.com">
+  <img src="https://autolabproject.com/images/autolab_red.svg" width="380px" height="100px">
+</a>
 
 This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
 ```
