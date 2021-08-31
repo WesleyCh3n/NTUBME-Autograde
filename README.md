@@ -1,5 +1,7 @@
 <h1 align="center" style="text-shadow: 2px 2px 2px #878787;"> NTU BME Autograde </h1>
 
+![logo](https://autolabproject.com/images/autolab_red.svg)
+
 This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
 ```
 ├───autograde-Makefile
