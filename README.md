@@ -1,5 +1,9 @@
 <h1 align="center" style="text-shadow: 2px 2px 2px #878787;"> NTU BME Autograde </h1>
 
+[![WesleyCh3n - NTU BME Autograde](https://img.shields.io/badge/WesleyCh3n-NTU_BME_Autograde-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTUBME-Autograde)
+![Bash - 5.0.17](https://img.shields.io/badge/Bash-5.0.17-informational?logo=gnu-bash)
+![Made with - Docker](https://img.shields.io/badge/Made_with-Docker-informational?logo=Docker)
+
 ![logo](https://autolabproject.com/images/autolab_red.svg)
 
 This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
