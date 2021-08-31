@@ -9,7 +9,7 @@
   <img src="https://autolabproject.com/images/autolab_red.svg" width="380px" height="100px">
 </a>
 
-This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for NTU BME Computer Programming Course. File tree is as follow,
+This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for [NTU BME Computer Programming Course](https://nol.ntu.edu.tw/nol/coursesearch/print_table.php?course_id=611%2018300&class=&dpt_code=6110&ser_no=12565&semester=110-1&lang=CH). File tree is as follow,
 ```
 ├───autograde-Makefile
 ├───autograde.tar
@@ -75,7 +75,7 @@ sudo make install
 | **AdditionalTar** | Additional files                              | file1, file2            | `[file1, file2]`       |
 | **VariableType**  | The tatal type of variables in this question. | use list to store types | `[float, double, int]` |
 
-**Google Test field**(`Test:`): using yaml [list](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) syntax to store the lists of tests also lists of logical operation each test. Remember not to write unnecessary `-`, that may loss some of tests.
+**Google Test field** (`Test:`): using yaml [list](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) syntax to store the lists of tests also lists of logical operation each test. Remember not to write unnecessary `-`, that may loss some of tests.
 
 This is an example of two test with one and two logical operations.
 ```yml
