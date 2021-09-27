@@ -9,11 +9,11 @@ while (( "$#" )); do
             FILE=$2
             shift
             ;;
-	-L|--labyaml)
-	    isLab= true
+        -L|--labyaml)
+            isLab=true
             FILE=$2
-	    shift
-	    ;;
+            shift
+            ;;
         -n|--name)
             HWNUM=$2
             shift
@@ -50,15 +50,14 @@ setup_color() {
 
 get_template() {
     info "autograde-Makefile"
-    curl -o ./autograde-Makefile -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/autograde-Makefile.template
+    curl -sfLo ./autograde-Makefile https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/Makefile
     info "gtest.cpp"
-    curl -o ./gtest.cpp -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/gtest.cpp.template
+    curl -sfLo ./gtest.cpp https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/gtest.cpp
     info "score.py"
-    curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score.py.template
-    if [[ $isLab==true ]];then
-	curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score_lab.py.template
-    else
-        curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score.py.template
+    curl -sfLo ./score.py https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/score.py
+    if [[ $isLab == true ]];then
+        info "This is lab. Change total score to 100."
+        sed -i '/40/s//70/g' ./score.py
     fi
 }
 
