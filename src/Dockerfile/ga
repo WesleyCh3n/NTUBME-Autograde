@@ -2,12 +2,18 @@
 
 ARGS=$#
 PARAMS=""
+isLab= false
 while (( "$#" )); do
     case "$1" in
         -Y|--yaml)
             FILE=$2
             shift
             ;;
+	-L|--labyaml)
+	    isLab= true
+            FILE=$2
+	    shift
+	    ;;
         -n|--name)
             HWNUM=$2
             shift
@@ -49,6 +55,11 @@ get_template() {
     curl -o ./gtest.cpp -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/gtest.cpp.template
     info "score.py"
     curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score.py.template
+    if [[ $isLab==true ]];then
+	curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score_lab.py.template
+    else
+        curl -o ./score.py -fsSL https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/template/score.py.template
+    fi
 }
 
 parse_yml() {
