@@ -17,7 +17,7 @@ endif
 	@echo "Done"
 
 install:
-	sudo cp ./ga /usr/bin/
+	sudo cp src/Dockerfile/ga /usr/bin/
 
 uninstall:
 	sudo rm /usr/bin/ga
