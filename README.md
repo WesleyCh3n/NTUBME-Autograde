@@ -1,9 +1,8 @@
 <h1 align="center" style="text-shadow: 2px 2px 2px #878787;"> NTU BME Autograde </h1>
 
-[![WesleyCh3n - NTU BME Autograde](https://img.shields.io/badge/WesleyCh3n-NTU_BME_Autograde-2ea44f?logo=github)](https://github.com/WesleyCh3n/NTUBME-Autograde)
+![docker action](https://github.com/WesleyCh3n/NTUBME-Autograde/actions/workflows/docker.yml/badge.svg)
 ![Bash - 5.0.17](https://img.shields.io/badge/Bash-5.0.17-informational?logo=gnu-bash)
-![Made with - Docker](https://img.shields.io/badge/Made_with-Docker-informational?logo=Docker)
-
+![Made with - Docker](https://img.shields.io/badge/With-Docker-informational?logo=Docker)
 
 <a href="http://autolabproject.com">
   <img src="https://autolabproject.com/images/autolab_red.svg" width="380px" height="100px">
@@ -37,6 +36,16 @@ sudo make install
 ```
 
 ## Usage - Generate Autograding Code
+
+### Basic usage:
+```
+ga [-L] -Y <answer.yml>
+```
+`-Y`: parsing YAML FILE
+
+`-L`: for scoring lab purpose
+
+In detail:
 1. First, goto the homework folder, ex. `~/Autolab/courses/<course_name>/<hw_name>/`.
 
 2. Create sample `answers.yml` by typing
@@ -67,7 +76,7 @@ sudo make install
     ga -Y answers.yml
     ```
 
-### Parameters
+### YAML Parameters
 | Parameters        | Info                                          | Format                  | Exmaple                |
 | :----:            | :--                                           | :--                     | :--                    |
 | **Autograde**     | Top level                                     |                         |                        |
@@ -111,21 +120,21 @@ This is an example of two test with one and two logical operations.
 
 If there is no **input**, leave it blank. if there is no test, just delete `Test:` field.
 
-## Docker
+## Run with Docker
 
 1. Create template with HW number.
 ```bash
-docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 -n {HW number}
+docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest -n {HW number}
 ```
 2. generate codes
 ```bash
-docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.1 -Y {filename}.yml
+docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest -Y {filename}.yml
 ```
 
 - You can put following code to shellrc(ex. `~/.bashrc`) to use `ga` normally as cli.
 ```bash
 ga() {
-    docker run --rm -v "$PWD":/workdir/ wesleych3n/autograde:v1.2 $@
+    docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest $@
 }
 ```
 
