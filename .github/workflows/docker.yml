@@ -2,7 +2,7 @@
 # FULL TUTORIAL: 
 #   https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
 
-name: ga ci build
+name: build
 
 # Controls when the workflow will run
 on:
@@ -10,7 +10,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - ./src/Dockerfile/
+      - ./src/Dockerfile/*
   pull_request:
     branches: [ main ]
 
