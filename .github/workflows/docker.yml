@@ -34,3 +34,6 @@ jobs:
       - name: docker build
         run: |
           docker build ./src/Dockerfile/ -t ghcr.io/wesleych3n/autograde:latest
+      - name: docker push
+        run: |
+          docker ghcr.io/wesleych3n/autograde:latest
