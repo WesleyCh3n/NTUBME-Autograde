@@ -50,11 +50,11 @@ setup_color() {
 
 get_template() {
     info "autograde-Makefile"
-    curl -sfLo ./autograde-Makefile https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/Makefile
+    curl -sfLo ./autograde-Makefile https://github.com/WesleyCh3n/NTUBME-Autograde/raw/main/src/Makefile
     info "gtest.cpp"
-    curl -sfLo ./gtest.cpp https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/gtest.cpp
+    curl -sfLo ./gtest.cpp https://github.com/WesleyCh3n/NTUBME-Autograde/raw/main/src/gtest.cpp
     info "score.py"
-    curl -sfLo ./score.py https://github.com/WesleyCh3n/NTUBME-Autograde/raw/master/src/score.py
+    curl -sfLo ./score.py https://github.com/WesleyCh3n/NTUBME-Autograde/raw/main/src/score.py
     if [[ $isLab == true ]];then
         info "This is lab. Change total score to 100."
         sed -i '/40/s//70/g' ./score.py
