@@ -8,7 +8,8 @@ name: build
 on:
   push:
     paths:
-      - ./src/Dockerfile/*
+      - './src/Dockerfile/Dockerfile'
+      - './src/Dockerfile/ga'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
