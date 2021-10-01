@@ -7,9 +7,10 @@ name: build
 # Controls when the workflow will run
 on:
   push:
-    paths:
-      - './src/Dockerfile/Dockerfile'
-      - './src/Dockerfile/ga'
+    paths-ignore:
+      - 'README.md'
+    branches:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
