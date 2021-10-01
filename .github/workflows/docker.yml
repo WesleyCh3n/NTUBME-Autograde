@@ -1,4 +1,6 @@
 # This is a basic workflow to help you get started with Actions
+# FULL TUTORIAL: 
+#   https://docs.github.com/en/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-ghcrio
 
 name: ga ci build
 
@@ -36,4 +38,4 @@ jobs:
           docker build ./src/Dockerfile/ -t ghcr.io/wesleych3n/autograde:latest
       - name: docker push
         run: |
-          docker ghcr.io/wesleych3n/autograde:latest
+          docker push ghcr.io/wesleych3n/autograde:latest
