@@ -7,6 +7,5 @@ ADD ./ga /usr/bin/ga
 RUN chmod +x /usr/bin/yq
 RUN chmod +x /usr/bin/ga
 
-# add workdir
 WORKDIR /workdir/
 ENTRYPOINT ["ga"]
