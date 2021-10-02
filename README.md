@@ -124,20 +124,15 @@ If there is no **input**, leave it empty. If there is no test, just delete `Test
 
 ## Run with Docker
 
-1. Create template with HW number.
-```bash
-docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest -n {HW number}
-```
-2. generate codes
-```bash
-docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest -Y {filename}.yml
-```
-
-- You can put following code to shellrc(ex. `~/.bashrc`) to use `ga` normally as cli.
+- Put following code to shellrc(e.g. `~/.bashrc`) to use `ga` normally as cli.
 ```bash
 ga() {
-    docker run --rm -v "$PWD":/workdir/ ghcr.io/wesleych3n/autograde:latest $@
+    docker run --rm -e HOST_USER_ID=$(id -u) -e HOST_USER_GID=$(id -g) -v `pwd`:/workdir/ ghcr.io/wesleych3n/autograde:latest ga $@
 }
+  
+# After re-login
+# ga -n {HW number}
+# ga -Y {filename}.yml
 ```
 
 ## Uninstall
