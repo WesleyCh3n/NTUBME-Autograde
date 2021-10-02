@@ -39,9 +39,11 @@ sudo make install
 
 ### Basic usage:
 ```
-ga [-L] -Y <answer.yml>
+ga [-n <HW number>] [-L] -Y <answer.yml>
 ```
-`-Y`: parsing YAML FILE
+`-n`: create blank `answer.yml` with `HW` number
+
+`-Y`: parsing YAML file
 
 `-L`: for scoring lab purpose
 
@@ -118,7 +120,7 @@ This is an example of two test with one and two logical operations.
 |**op**    |logical operator      |Use quote.<ul><li>Binary operator: `=`, `>`, `<`, `!=`, `>=`, `<=`</li><li>String comparasion: `&=`(String match), `&?`(String not match)</li></ul>|`'<='`       |
 |**R**     |Right side of operator|Value. Fraction with double-type denominator is also acceptable.                                                                                   |`(11/3.0)-12`|
 
-If there is no **input**, leave it blank. if there is no test, just delete `Test:` field.
+If there is no **input**, leave it empty. If there is no test, just delete `Test:` field.
 
 ## Run with Docker
 
