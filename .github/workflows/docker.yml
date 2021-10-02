@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: docker build
         run: |
-          docker build ./src/Dockerfile/ -t ghcr.io/wesleych3n/autograde:latest
+          docker build -f ./src/Dockerfile/ -t ghcr.io/wesleych3n/autograde:latest src
       - name: docker push
         run: |
           docker push ghcr.io/wesleych3n/autograde:latest
