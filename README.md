@@ -8,7 +8,7 @@
   <img src="https://autolabproject.com/images/autolab_red.svg" width="380px" height="100px">
 </a>
 
-This program create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for [NTU BME Computer Programming Course](https://nol.ntu.edu.tw/nol/coursesearch/print_table.php?course_id=611%2018300&class=&dpt_code=6110&ser_no=12565&semester=110-1&lang=CH). File tree is as follow,
+This program ([ga](https://github.com/WesleyCh3n/NTUBME-Autograde/blob/main/src/ga)) create the files which [Autolab](https://autolabproject.com/)'s `autograde` needed for [NTU BME Computer Programming Course](https://nol.ntu.edu.tw/nol/coursesearch/print_table.php?course_id=611%2018300&class=&dpt_code=6110&ser_no=12565&semester=110-1&lang=CH). File tree is as follow,
 ```
 ├───autograde-Makefile
 ├───autograde.tar
@@ -17,11 +17,11 @@ This program create the files which [Autolab](https://autolabproject.com/)'s `au
 ├───answers.yml
 ```
 
-You can walk through `autograde-Makefile` to have the overview of whole concept.
+You can walk through [`autograde-Makefile`](https://github.com/WesleyCh3n/NTUBME-Autograde/blob/main/src/Makefile) to have the overview of whole concept.
 
-`score.py` is the main code to grade student score.
+[`score.py`](https://github.com/WesleyCh3n/NTUBME-Autograde/blob/main/src/score.py) is the main code to grade student score.
 
-`gtest.cpp` is the [Google Test](https://github.com/google/googletest) code.
+[`gtest.cpp`](https://github.com/WesleyCh3n/NTUBME-Autograde/blob/main/src/gtest.cpp) is the [Google Test](https://github.com/google/googletest) code.
 
 
 ## Prerequisites
@@ -79,12 +79,12 @@ In detail:
     ```
 
 ### YAML Parameters
-| Parameters        | Info                                          | Format                  | Exmaple                |
-| :----:            | :--                                           | :--                     | :--                    |
-| **Autograde**     | Top level                                     |                         |                        |
-| **Homework**      | HW number                                     | number+problem          | `6c`                   |
-| **AdditionalTar** | Additional files                              | file1, file2            | `[file1, file2]`       |
-| **VariableType**  | The tatal type of variables in this question. | use list to store types | `[float, double, int]` |
+| Parameters        | Info                                                 | Format                  | Exmaple                |
+| :----:            | :--                                                  | :--                     | :--                    |
+| **Autograde**     | Top level                                            |                         |                        |
+| **Homework**      | HW number                                            | number+problem          | `6c`                   |
+| **AdditionalTar** | Additional files                                     | file1, file2            | `[file1, file2]`       |
+| **VariableType**  | The tatal type of answer variables in this question. | use list to store types | `[float, double, int]` |
 
 **Google Test field** (`Test:`): using yaml [list](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) syntax to store the lists of tests also lists of logical operation each test. Remember not to write unnecessary `-`, that may loss some of tests.
 
