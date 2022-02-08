@@ -56,7 +56,30 @@ func GetTemplate() {
 	}
 }
 
-func Parser(f []byte) {
+func GetOp(op string) string {
+	switch op {
+	case "=":
+		return "ASSERT_EQ"
+	case ">":
+		return "ASSERT_GT"
+	case "<":
+		return "ASSERT_LT"
+	case "!=":
+		return "ASSERT_NE"
+	case ">=":
+		return "ASSERT_GE"
+	case "<=":
+		return "ASSERT_LE"
+	case "&=":
+		return "ASSERT_STREQ"
+	case "&?":
+		return "ASSERT_STRNE"
+	default:
+		return ""
+	}
+}
+
+func createPackage(f []byte) {
 	t := Template{}
 	if err := yaml.Unmarshal(f, &t); err != nil {
 		log.Fatalf("error: %v", err)
@@ -80,26 +103,45 @@ func Parser(f []byte) {
 		utils.LogInfo("-- Global answer Type:", t.Ag.VarType)
 	}
 
+	testInputs := []string{} // test input for score.py as user input
+	testCases := ""          // test cases for gtest.cpp
+
 	if len(t.Ag.Test) <= 0 {
 		utils.LogWarn("-- No test case", "")
 	} else {
 		for i, test := range t.Ag.Test {
 			utils.LogCyan("-- Testing:", i)
 
-			fmt.Println(strings.Join(test.Input, " "))
+			testInputs = append(testInputs, strings.Join(test.Input, " "))
+			utils.LogCyan("     Input:", test.Input)
+
+			testContent := ""
 			for _, answer := range test.Answer {
-				fmt.Println(strings.ReplaceAll(answer.L, "ans", "answer") +
-					answer.Op +
+				testContent += fmt.Sprintf("\t%s(%s, %s);\n",
+					GetOp(answer.Op),
+					strings.ReplaceAll(answer.L, "ans", "answer"),
 					answer.R)
 			}
+
+			utils.LogCyan("     GoogleTest:\n", testContent[:len(testContent)-1])
+			testCases += fmt.Sprintf("\nTEST(GoogleTest, test%d){\n%s}",
+				i+1,
+				testContent)
 		}
 	}
 
-	func() {
-		utils.SedFile("./autograde-Makefile", "{{HW_NUM}}", HwNumPro)
-		utils.SedFile("./autograde-Makefile", "{{N_TEST}}", strconv.Itoa(len(t.Ag.Test)))
-		// utils.SedFile("./autograde-Makefile", "{{INPUTS}}", strconv.Itoa(len(t.Ag.Test)))
-	}()
+	utils.LogInfo("-- Create autograde-Makefile", "")
+	utils.ReplaceStr("./autograde-Makefile", "{{HW_NUM}}", HwNumPro)
+	utils.ReplaceStr("./autograde-Makefile", "{{N_TEST}}", strconv.Itoa(len(t.Ag.Test)))
+	utils.ReplaceStr("./autograde-Makefile", "{{INPUTS}}", fmt.Sprintf("\"%s\"", strings.Join(testInputs, ";")))
+
+	utils.LogInfo("-- Create gtest.cpp", "")
+	varTypes := ""
+	for i, v := range t.Ag.VarType {
+		varTypes += fmt.Sprintf("extern %s answer%d;\n", v, i+1)
+	}
+	utils.InsertStringToFile("./gtest.cpp", varTypes, 2)
+	utils.InsertStringToFile("./gtest.cpp", testCases, -1)
 }
 
 func main() {
@@ -113,5 +155,5 @@ func main() {
 	}
 
 	// Parse file
-	Parser(yamlFile)
+	createPackage(yamlFile)
 }
