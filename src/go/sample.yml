@@ -1,0 +1,22 @@
+---
+Autograde:
+  Homework: 4c
+  AdditionalTar: ["./Document.txt", "./foo.txt"]
+  VariableType: [int, float, double]
+  Test:
+    - input: [1, 0.2, -32]
+      answer:
+        - L: abs(ans1)
+          op: '<='
+          R: 11/3
+    - input: [0.40, 32, -12]
+      answer:
+        - L: ans1
+          op: =
+          R: 12
+        - L: sqrt(ans1-2)
+          op: '!='
+          R: 0.002
+        - L: abs(ans2-2)
+          op: '>='
+          R: 11/4
