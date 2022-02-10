@@ -144,6 +144,7 @@ func createPackage(f []byte) {
 	utils.InsertStringToFile("./gtest.cpp", varTypes, 2)
 	utils.InsertStringToFile("./gtest.cpp", testCases, -1)
 
+	utils.LogInfo("-- Tar-ing files", "")
 	utils.TarFile("autograde.tar", append(t.Ag.Tar, "gtest.cpp", "score.py"))
 	if err := os.Remove("gtest.cpp"); err != nil {
 		log.Fatalln(err)
@@ -163,6 +164,7 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
+	utils.LogInfo("--", "")
 	// Parse file
 	createPackage(yamlFile)
 }
