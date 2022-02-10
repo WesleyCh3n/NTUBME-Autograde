@@ -1,7 +1,7 @@
 ---
 Autograde:
   Homework: 4c
-  AdditionalTar: ["./Document.txt", "./foo.txt"]
+  AdditionalTar: ["sample.yml", "main.go"]
   VariableType: [int, float, double]
   Test:
     - input: [1, 0.2, -32]

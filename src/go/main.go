@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -142,6 +143,14 @@ func createPackage(f []byte) {
 	}
 	utils.InsertStringToFile("./gtest.cpp", varTypes, 2)
 	utils.InsertStringToFile("./gtest.cpp", testCases, -1)
+
+	utils.TarFile("autograde.tar", append(t.Ag.Tar, "gtest.cpp", "score.py"))
+	if err := os.Remove("gtest.cpp"); err != nil {
+		log.Fatalln(err)
+	}
+	if err := os.Remove("score.py"); err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func main() {
