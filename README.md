@@ -28,6 +28,8 @@ You can walk through [`autograde-Makefile`](https://github.com/WesleyCh3n/NTUBME
 - curl: get source code template.
 - [jq](https://stedolan.github.io/jq/) (v1.5): command-line JSON processor.
 - [yq](https://mikefarah.gitbook.io/yq/) (v3.4.0): command-line YAML processor.
+- [gtest](https://shengyu7697.github.io/googletest/): google unit test
+- g++
 
 ## Installation
 ```bash
